@@ -8,37 +8,42 @@ import User from "../assets/images/User.jpg";
 import { auth } from "../firebase";
 import { toast } from "react-toastify";
 import { BsTelegram } from "react-icons/bs";
+import { FaHome, FaFire, FaCalendarAlt, FaHeart } from "react-icons/fa";
+
+const Navdata = [
+  {
+    id: 1,
+    headername: "Home",
+    Name: "Home",
+    link: "/",
+    icon: FaHome,
+  },
+  {
+    id: 2,
+    headername: "Trending Movies",
+    Name: "Trending",
+    link: "/trending",
+    icon: FaFire,
+  },
+  {
+    id: 3,
+    headername: "Upcoming Movies",
+    Name: "Upcoming",
+    link: "/upcoming",
+    icon: FaCalendarAlt,
+  },
+  {
+    id: 4,
+    headername: "Favorite Movies",
+    Name: "Favorites",
+    link: "/favorite",
+    icon: FaHeart,
+  },
+];
+
 function Navbar() {
   const { header, user } = useContext(Contextpage);
   const [activemobile, setActivemobile] = useState(false);
-
-  // console.log(user)
-  const Navdata = [
-    {
-      id: 1,
-      headername: "Home",
-      Name: "Home",
-      link: "/",
-    },
-    {
-      id: 2,
-      headername: "Trending Movies",
-      Name: "Trending",
-      link: "/trending",
-    },
-    {
-      id: 3,
-      headername: "Upcoming Movies",
-      Name: "Upcoming",
-      link: "/upcoming",
-    },
-    {
-      id: 4,
-      headername: "Favorite Movies",
-      Name: "Favorites",
-      link: "/favorite",
-    },
-  ];
 
   return (
     <>
@@ -53,7 +58,7 @@ function Navbar() {
       <nav
         className={`${
           activemobile ? "block" : "hidden"
-        } fixed bg-black/90 md:bg-black h-full w-full md:w-[15rem] z-30 md:block`}
+        } fixed bg-black md:bg-black h-full w-full md:w-[15rem] z-30 md:block`}
       >
         <motion.div
           animate={{ scale: 1 }}
@@ -66,43 +71,33 @@ function Navbar() {
             onClick={() => setActivemobile(!activemobile)}
           >
             <img src={logo2} alt="logo" className="w-20" />
-            <h1 className="text-gray-400/70 font-bold text-2xl text-center">
+            <h1 className="text-white font-bold text-2xl text-center">
               Movies
             </h1>
           </Link>
         </motion.div>
 
-        <ul className="text-white font-semibold text-[16px] text-center px-5">
+        <ul className="text-white font-bold text-[16px] text-center px-5">
           {Navdata.map((data) => (
             <Link key={data.id} to={data.link}>
               <li
                 className={`${
                   header === data.headername
                     ? "bg-blue-500/20 border-blue-600 text-white"
-                    : "bg-gray-500/20 border-black"
-                } p-2 my-2 hover:bg-blue-500/20 rounded-[5px] border-2 hover:border-blue-600`}
+                    : "bg-gray-500/20 border-black text-gray-300"
+                } p-2 my-2 rounded-[5px] border-2 flex items-center justify-center transition-all duration-300 hover:text-white hover:bg-blue-500/20 hover:border-blue-600`}
                 onClick={() => setActivemobile(!activemobile)}
               >
-                {data.Name}
+                <data.icon className="mr-2 text-2xl" />
+                <span className="text-lg font-sans">{data.Name}</span>
               </li>
             </Link>
           ))}
         </ul>
 
-        {/* Loginsection */}
-
         <div className=" absolute bottom-0 w-full p-5 md:p-2 text-white">
           {user ? (
             <>
-              {/* <div className="w-full bg-gray-900 px-5 py-2 gap-4 rounded-xl flex items-center font-semibold border-2 border-blue-100/10">
-                <img
-                  src={user.photoURL == null ? User : user.photoURL}
-                  alt="user"
-                  className="h-10 rounded-full"
-                />
-                <h1>{user.displayName}</h1>
-              </div> */}
-
               <div
                 className="cursor-pointer bg-red-600 hover:bg-red-800 flex flex-row justify-center items-center rounded-xl mt-2"
                 onClick={() => auth.signOut(toast.error("Logout successfully"))}
@@ -127,6 +122,7 @@ function Navbar() {
             </>
           )}
         </div>
+
         <footer className="text-center md:text-left absolute bottom-25">
           <div className=" md:bottom-10 flex justify-center items-center text-white m-24 md:m-7 ">
             <div className="relative flex text-center flex-col gap-4 justify-center mx-auto md:mx-6">
