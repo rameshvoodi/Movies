@@ -3,8 +3,9 @@ dotenv.config();
 const TelegramBot = require("node-telegram-bot-api");
 
 // Replace 'YOUR_TELEGRAM_BOT_TOKEN' and 'YOUR_TMDB_API_KEY' with your actual bot token and TMDb API key
-const botToken = process.env.REACT_APP_TELEGRAM_KEY;
-const tmdbApiKey = process.env.API_KEY;
+// const botToken = process.env.REACT_APP_TELEGRAM_KEY;
+const botToken = "6594013738:AAHA0VByzhApxzYTKiUPPpr0epH9lLGoQ5Y";
+const tmdbApiKey = "680074d35615316e10163f37e95daaae";
 
 const bot = new TelegramBot(botToken, { polling: true });
 
